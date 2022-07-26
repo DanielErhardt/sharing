@@ -1,7 +1,7 @@
 // Recebe uma data e retorna outra na próxima segunda-feira.
 const getNextMonday = (date) => {
   // Essa nova variável é necessária porque Date é uma classe, seu valor é uma referência.
-  // Fazer setDate do "date" altera o valor do que foi passado como parâmetro ao chamar a função.
+  // Fazer setDate no "date" altera o valor do que foi passado como parâmetro ao chamar a função.
   const newDate = new Date(date);
   return new Date(newDate.setDate(newDate.getDate() + (newDate.getDay() === 0 ? 1 : 2)))
 };
@@ -13,7 +13,10 @@ const getPreviousFriday = (date) => {
 };
 
 // Recebe uma data e retorna outra no último dia do mês anterior.
-const getPreviousMonthOnLastDay = (date) => new Date(date.setDate(0));
+const getPreviousMonthOnLastDay = (date) => {
+  const newDate = new Date(date);
+  return new Date(newDate.setDate(0));
+}
 
 // Verifica se é fim de semana.
 const isWeekend = (date) => date.getDay() % 6 === 0;
@@ -30,6 +33,7 @@ const generatePaymentDates = (purchaseDate, amount) => {
   console.log('-------------------------------');
   console.log(`Data da compra: ${getFormattedDate(purchaseDate)}.`);
   console.log(`Parcelas: ${amount}`);
+
   const dates = [];
 
   for (let i = 1; i <= amount; i += 1) {
