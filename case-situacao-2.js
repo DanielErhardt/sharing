@@ -69,8 +69,8 @@ const generatePaymentDates = (purchaseDate, amount) => {
 };
 
 const logDates = (dates) => {
-  dates.forEach((date) => {
-    console.log(getFormattedDate(date));
+  dates.forEach((date, index) => {
+    console.log(`Parcela ${index + 1}: ${getFormattedDate(date)}`);
   });
 }
 
