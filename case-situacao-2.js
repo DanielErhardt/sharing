@@ -21,9 +21,6 @@ const getPreviousMonthOnLastDay = (date) => {
 // Verifica se é fim de semana.
 const isWeekend = (date) => date.getDay() % 6 === 0;
 
-// Normaliza o mês quando as parcelas caem nos anos subsequentes.
-const normalizeMonth = (month) => month % 12;
-
 // Cria string formatada de maneira específica para a data.
 const getFormattedDate = (date) => date.toLocaleString("pt-BR", {day: "numeric", month: "numeric", year:"numeric"});
 
@@ -41,9 +38,8 @@ const generatePaymentDates = (purchaseDate, amount) => {
     let nextDate = new Date(purchaseDate.getFullYear(), targetMonth, purchaseDate.getDate());
 
     // Verifica se a nova data pulou mais de um mês.
-    const nextDateLeapsAMonth = (targetDate) => {
-      return targetDate.getMonth() -  normalizeMonth(targetMonth) !== 0;
-    };
+    // targetMonth % 12 garante que o mês usado no cálculo fique entre 0 e 11 quando as parcelas caem nos anos subsequentes.
+    const nextDateLeapsAMonth = (targetDate) => targetDate.getMonth() - (targetMonth % 12) !== 0;
 
     if (nextDateLeapsAMonth(nextDate)) {
       nextDate = getPreviousMonthOnLastDay(nextDate);
